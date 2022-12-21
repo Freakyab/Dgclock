@@ -116,7 +116,7 @@ const App = () => {
         <ul>
         {item.map((e ,index)=>(
             <li key = {index}>{e}
-            {/* <button onClick={()=>{Delete(index)}}> del</button> */}
+            <button onClick={()=>Delete(index)}> del</button>
             </li>
         ))} 
         </ul>
