@@ -14,27 +14,24 @@ const App = () => {
     const [value, setvalue] = React.useState([])
     const Array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "+", "-", "=", "AC","Square"]
     const con = (e) => {
-
         defaultvalue = e;
         if (e === "AC") {
+            
             setvalue([])
         }
-        else if(e==="Square")
+        else if(e ==="Square")
         {
             setvalue(eval(value*value))
         }
         else if (e === "=") {
             setvalue(eval(value))
-            
+            // setTimeout(setvalue([]),2000)
         }
         else {
             setvalue([value] + defaultvalue);
-            // console.log(e);
         }
     }
-    // const inputdata =(e)=>{
-    //     console.log(value)
-    // }
+    
     return (
         <>
             <div className="container">
