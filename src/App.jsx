@@ -1,143 +1,65 @@
-// import React from "react";
-// let time = new Date().toLocaleTimeString();
-// const App = () =>{
-//     const [ctime,setctime]=React.useState(time);
+import React from 'react';
+import './style.css';
 
-//     const upTime =() =>{
-//         time = new Date().toLocaleTimeString();
-//         setctime(time);
-//     };
-//     setInterval(upTime,1000)
-//     return (
-//         <>
-//         <h1 className="mainTime">{ctime}</h1>
+import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
+import 'react-vertical-timeline-component/style.min.css';
 
-//         </>
-//     )
-// }
-// export default App;
-// let time = new Date().toLocaleTimeString()
-// const App=()=>{
-//     const [A,setA] = React.useState(time);
-//     function changediv(){
-//         time = new Date().toLocaleTimeString()
-//         setA (time);
-//     }
-//     setInterval(changediv, 1000);
-//     return (
-//         <>
-//         <div> time is :- {A}</div>
-//         </>
-//     )
-// }
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBriefcase, faSchool } from '@fortawesome/free-solid-svg-icons';
 
-// import React from "react";
-// const json = [
-//     {
-//         id: 1,
-//         text: "i am aryan",
-//         des:"nice"
-//     },
-//     {
-//         id: 2,
-//         text: "my name is bhisikar",
-//         des:"noice"
-//     },
-//     {
-//         id:3,
-//         text:"i am king",
-//         des:"double noice"
-//     }        
-// ]        
-// const App = () => {
-//     // const [Data, setData] = React.useState(json)            
-//     return (
-//         <>
-//             {json.map(e => (
-//                 <span key = {e.id}>{e.text}<br/>{e.des}<br/></span>
-//             ))}                    
-//         </>
-//     )
-// }
-// import React from "react";                    
-// const App = () => {
-//   const [items, setItems] = React.useState([]);                        
-//   const addItem = (e) => {
-//     e.preventDefault();
-//     setItems([...items, e.target.item.value]);
-//     e.target.item.value = "Enter";
-//   };
-//   const removeItem = (index) => {
-//     setItems(items.filter((item, i) => i !== index));
-//   };                                
-//   return (
-//     <>
-//       <form onSubmit={addItem}>
-//         <input name="item" text="Enter"/>
-//         <button>Add</button>
-//       </form>
-//       <ul>
-//         {items.map((item, index) => (
-//           <li key={index}>
-//             {item}
-//             <button onClick={() => removeItem(index)}>X</button>
-//           </li>
-//         ))}
-//       </ul>
-//     </>
-//   );
-// };
-import React from "react";
-import "../src/style.css"
-var a = 600;
-const App = () => {
-    const [item, setitem] = React.useState([])
-    const  changevar=(a)=>{
-        // var r = document.querySelector(':root');
-        // r.style.setProperty('--border',700);
-        console.log(a);
-        document.querySelector(".container").style.height= a + "px";
-        
-    }
-    const clicked = (e) => {
-        e.preventDefault()
-        setitem([...item, e.target.item.value])
-        e.target.item.value = "";
-        a = a+30
-        changevar(a);
-    }
+const workIcon = {
+    icon: <FontAwesomeIcon icon={faBriefcase} />,
+    iconStyle: { background: 'rgb(33, 150, 243)', color: '#fff' }
+};
+const schoolIcon = {
+    icon: <FontAwesomeIcon icon={faSchool} />,
+    iconStyle: { background: 'rgb(233, 30, 99)', color: '#fff' }
+};
 
-    const Delete = (index) => {
-        setitem(item.filter((item, i) => i !== index))
-        a=a-30;
-        document.querySelector(".container").style.height= a + "px";
-    }
+function App() {
+    const timeline = [
+        { icon: workIcon, date: 'Present', title: 'About me', desc: 'Hello, my name is Aryan Vijay Bhisikar and I am currently a second-year student at St Vincent Pallotti College of Engineering & Technology. I am pursuing a degree in engineering and will be completing my studies in 2025.',color: "red" },
+        { icon: workIcon, date: '2010 - 2011', title: 'Art Director', subtitle: 'San Francisco, CA', desc: 'Creative Direction, User Experience, Visual Design, SEO, Online Marketing',color : "blue" },
+        { icon: workIcon, date: '2008 - 2010', title: 'Web Designer', subtitle: 'Los Angeles, CA', desc: 'User Experience, Visual Design' },
+        { icon: workIcon, date: '2006 - 2008', title: 'Web Designer', subtitle: 'San Francisco, CA', desc: 'User Experience, Visual Design' },
+        { icon: schoolIcon, date: 'April 2013', title: 'Content Marketing for Web, Mobile and Social Media', subtitle: 'Online Course', desc: 'Strategy, Social Media' },
+        { icon: schoolIcon, date: 'November 2012', title: 'Agile Development Scrum Master', subtitle: 'Certification', desc: 'Creative Direction, User Experience, Visual Design' },
+        { icon: schoolIcon, date: '2002 - 2006', title: 'Bachelor of Science in Interactive Digital Media Visual Imaging', subtitle: 'Bachelor Degree', desc: 'Creative Direction, Visual Design' },
+        // { icon: starIcon }
+    ];
 
     return (
         <>
-                <div className="heading-style">
-                    <h1>
-                        Todo list
-                    </h1>
-                </div>
-                <div className="div-style">
 
-                    <form onSubmit={clicked} className="input-style">
-                        <input type="text" name="item" className="label-style" />
-                        <button className="btn-style">click me</button>
-                    </form>
-                    <ul>
-                        {item.map((e, index) => (
-                            <li key={index}>{e}
-                                <button onClick={() => Delete(index)} className="delete-btn"> del</button>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <div className="container">
-            </div>
+            <VerticalTimeline
+                animate={false}
+                layout="1-column"
+                lineColor='#ddd'
+            >
+                {timeline.map((t, i) => {
+                    // const contentStyle = { background: 'rgb(33, 150, 243)', color: '#fff', width: '50%' };
+                    // const contentStyle = { background: `${t.color}`, color: '#fff', width: '50%' };
+                    const contentStyle = { backgroundImage: `url(${require('./img/wave.png')})`, color: 'black', width: '50%' };
+                    const arrowStyle = { borderRight: '7px solid  rgb(33, 150, 243)' };
+
+                    return <VerticalTimelineElement
+                        key={i}
+                        className="vertical-timeline-element--work"
+                        contentStyle={contentStyle}
+                        contentArrowStyle={arrowStyle}
+                        date={t.date}
+                        {...t.icon}
+                    >
+                        {t.title ? <React.Fragment>
+                            <h3 className="vertical-timeline-element-title">{t.title}</h3>
+                            {t.subtitle && <h4 className="vertical-timeline-element-subtitle">{t.subtitle}</h4>}
+                            {t.desc && <p>{t.desc}</p>}
+                        </React.Fragment> : undefined}
+                    </VerticalTimelineElement>
+                })}
+            </VerticalTimeline>
         </>
-    )
+    );
 }
 
 export default App;
