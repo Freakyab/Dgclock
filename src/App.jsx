@@ -30,7 +30,6 @@ function App() {
 
     return (
         <>
-
             <VerticalTimeline
                 animate={false}
                 layout="1-column"
