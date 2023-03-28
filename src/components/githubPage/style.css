@@ -1,0 +1,53 @@
+body {
+    background: #18181b;
+    color: #fff;
+}
+
+img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.contentDiv {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    margin: 20px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.17);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 20px;
+
+}
+
+.card:hover {
+    background-color: #282c34;
+    background: linear-gradient(0deg, #282c34 0%, rgba(17, 0, 32, 0.5) 100%);
+    box-shadow: 0 7px 20px 5px #00000088;
+    border-radius: 0.7rem;
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+}
+
+.header {
+    font: 1.5rem 'Roboto', sans-serif;
+    text-transform: capitalize;
+}
+
+.active{
+    background-color: #282c34;
+    background: linear-gradient(0deg, #282c34 0%, rgba(17, 0, 32, 0.5) 100%);
+    box-shadow: 0 7px 20px 5px #00000088;
+    border-radius: 0.7rem;
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    padding: 20px;
+}
