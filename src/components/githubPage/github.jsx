@@ -1,17 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./style.css"
 import { AiFillGithub } from "react-icons/ai"
 
 const Github = (props) => {
-    // const  { id } = props;
-    const { id } = "6422d8d699c754e57a1b7419"
-    const [search, setSearch] = React.useState("freakyab");
-    const [data, setData] = React.useState(null);
-    const [userInfo, setUserInfo] = React.useState(null);
-    const [selected, setSelected] = React.useState([]);
-    const [sendData, setSendData] = React.useState(null);
-    const [update,setUpdate] = React.useState(false);
+    const  { id } = props;
+    const [search, setSearch] = useState("");
+    const [data, setData] = useState(null);
+    const [userInfo, setUserInfo] = useState(null);
+    const [selected, setSelected] = useState([]);
+    const [update, setUpdate] = useState(false);
+    const [show, setShow] = useState(true);
     const handleChange = (e) => {
         e.preventDefault();
         setData(search);
@@ -24,29 +23,47 @@ const Github = (props) => {
     const fetchData = async () => {
         try {
             const res = await axios.get(`https://api.github.com/users/${data}/repos`);
-            const res1 = await axios.get("http://localhost:5000/Admin/sendData");
-
+            const res1 = await axios.get("https://api-dusky-pi.vercel.app/Admin/sendData");
+            if(res.data.status === false){
+                setShow(false);
+            }
+            console.log(res1.data)
             setUserInfo(res.data);
             let newSelected = Array(res.data.length).fill(false);
-            if(res1.data.data === 0){
+            if (res1.data.data === 0) {
                 setSelected(newSelected);
-            }else{
-            res.data.map((e, index) => {
-                res1.data.data.map(e1 => {
-                    if (parseInt(e.id) === parseInt(e1.id)) {
-                        newSelected[index] = "constant";
-                        setSelected(newSelected);
-                    }
+            } else {
+                res.data.map((e, index) => {
+                    res1.data.data.map(e1 => {
+                        if (parseInt(e.id) === parseInt(e1.id)) {
+                            newSelected[index] = true;
+                            setSelected(newSelected);
+                        }
+                    })
                 })
-            })
-        }
+            }
         } catch (err) {
             console.log(err);
         }
     };
     const toBackend = async () => {
         try {
-            await axios.get("http://localhost:5000/Admin/ProjectData?items=" + JSON.stringify(sendData));
+            console.log(selected)
+            await axios.get("https://api-dusky-pi.vercel.app/Admin/ProjectData?items=" + JSON.stringify(selected.map((e, index) => {
+                if (selected[index] === true) {
+                    return {
+                        id: userInfo[index].id,
+                        name: userInfo[index].name,
+                        description: userInfo[index].description,
+                        owner: userInfo[index].owner.login,
+                        default_branch: userInfo[index].default_branch,
+                        html_url: userInfo[index].html_url,
+                        avatar_url: userInfo[index].owner.avatar_url,
+                    }}
+                    return false;
+                })
+            ))
+            setUpdate(prev => !prev);
         } catch (err) {
             console.log(err);
         }
@@ -56,18 +73,12 @@ const Github = (props) => {
         if (data !== null) {
             fetchData();
         }
-    }, [data]);
-    useEffect(() => {
-        setTimeout(() => {
-            setUpdate(prev => !prev);
-          }, 1000);
-    }, [update]);
+    }, [data,update]);
     return (
         <>
             {id === null ? null : (
                 <>
                     <div>
-                        <h1>{id}</h1>
                         <form>
                             <input type="text" onChange={changeString} />
                             <button type="submit" onClick={handleChange}>
@@ -82,25 +93,10 @@ const Github = (props) => {
                                     return (
                                         <div key={item.id} className={selected[index] ? "active" : "card"}
                                             onClick={() => {
-                                                const newSelected = Array(userInfo.length).fill(false);
-                                                newSelected[index] = true;
-
-                                                setSelected(prevSelected => {
+                                                setSelected((prevSelected) => {
                                                     const newSelections = [...prevSelected];
-                                                    newSelections[index] = prevSelected[index] === "constant" ? false : true;
+                                                    newSelections[index] = !prevSelected[index];
                                                     return newSelections;
-                                                  });
-                                                  
-                                                setSendData({
-                                                    id: item.id,
-                                                    name: item.name,
-                                                    description: item.description,
-                                                    owner: item.owner.login,
-                                                    default_branch: item.default_branch,
-                                                    html_url: item.html_url,
-                                                    avatar_url: item.owner.avatar_url,
-                                                    selected: "constant",
-                                                    index: index
                                                 });
                                             }}>
                                             <h1 className="header">{item.name}</h1>
@@ -113,7 +109,7 @@ const Github = (props) => {
                                     );
                                 })}
                             </div>
-                            <button onClick={() => {toBackend(); setUpdate(prev => !prev);}}>send </button>
+                            {data.length!== 0 || !show ?<button onClick={() => { toBackend() }}>send </button>:null}
                         </>
                     )}
                 </>

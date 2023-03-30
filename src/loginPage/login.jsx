@@ -12,20 +12,20 @@ function LoginPage({ setUser, setId }) {
 
   const blobRef = useRef(null);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const res = await axios.get(
-  //       `https://api-dusky-pi.vercel.app/Admin/login?username=${username}&password=${password}`
-  //     );
-  //     if (res.data.status === true) {
-  //       setUser(true);
-  //       setId(res.data.userId);
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.get(
+        `https://api-dusky-pi.vercel.app/Admin/login?username=${username}&password=${password}`
+      );
+      if (res.data.status === true) {
+        setUser(true);
+        setId(res.data.userId);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     const blob = blobRef.current;
@@ -46,7 +46,7 @@ function LoginPage({ setUser, setId }) {
 
     <div className="container">
       <div className="blob" ref={blobRef}></div>
-      {/* <div className="login">
+      <div className="login">
         <h1>Login</h1>
         <form onSubmit={handleSubmit} className="form">
           <div className="inputBox">
@@ -72,10 +72,9 @@ function LoginPage({ setUser, setId }) {
           }} /> : <AiFillEye className="icon" onClick={() => {
             setInvisible(!invisible)
           }} />}
-          // <button type="submit" className="sumbitBtn">Submit</button>
+         <button type="submit" className="sumbitBtn">Submit</button>
         </form>
-      </div> */}
-      <button type="submit" className="sumbitBtn" onClick={setUser(true)}>Submit</button>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,18 @@
+.heading{
+    font-size: 70px;
+    font-weight: 600;
+    background-image: linear-gradient(to left, #553c9a, #b393d3);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    text-transform: capitalize;;
+
+}
+
+li{
+    list-style: none;
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin: 10px 0;
+}
