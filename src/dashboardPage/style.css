@@ -1,18 +1,49 @@
+.mainDiv{
+    color: white;
+    margin:20px;
+    border-radius: 10px;
+    padding: 20px;
+    background: linear-gradient(0deg, #282c34 0%, rgba(17, 0, 32, 0.5) 100%);
+    box-shadow: 0 7px 20px 5px #00000088;
+    border-radius: 0.7rem;
+}
 .heading{
-    font-size: 70px;
-    font-weight: 600;
-    background-image: linear-gradient(to left, #553c9a, #b393d3);
-    color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
-    text-transform: capitalize;;
-
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    
+}
+li{
+    font-size: 1rem;
+    margin-bottom: 10px;
+    text-decoration: none;
+    list-style: none;
+    background-color: black;
+    padding: 10px;
+    border-radius: 0.7rem;
+    padding-left: 20px;
+    text-transform: capitalize;
 }
 
-li{
-    list-style: none;
-    font-size: 20px;
-    font-weight: 600;
-    text-transform: capitalize;
-    margin: 10px 0;
+.listElements{
+    display: flex;
+    align-content: center;
+    justify-content: space-between;    
+    margin: 20px;
+}
+.arrow{
+    font-size: 1.5rem;
+    color: white;
+    transform: rotate(90deg);
+    transition: 0.5s ease all;
+}
+
+h2:hover{
+    color: white;
+    transform: scale(1.1);
+    background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: 0.5s ease all;
 }
