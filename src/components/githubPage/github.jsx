@@ -32,7 +32,6 @@ const Github = (props) => {
     const [data, setData] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
     const [selected, setSelected] = useState([]);
-    const [update, setUpdate] = useState(false);
     const [show, setShow] = useState(true);
     const [options, setOptions] = useState("Repo");
     const handleChange = (e) => {
@@ -108,7 +107,6 @@ const Github = (props) => {
                     msg("backend");
                 }
             });
-            setUpdate(prev => !prev);
         } catch (err) {
             console.log(err);
             msg(false)
@@ -120,7 +118,7 @@ const Github = (props) => {
             fetchData();
             
         }
-    }, [data, update]);
+    }, [data]);
     return (
         <>
             {id === null ? null : (
